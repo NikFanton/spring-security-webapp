@@ -7,7 +7,7 @@
         </encoder>
     </appender>
 
-    <logger name="net.proselyte.springsecurityapp">
+    <logger name="ua.training">
         <level value="debug"/>
     </logger>
 
