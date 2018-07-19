@@ -28,4 +28,10 @@
         <!--</property>-->
     <!--</bean>-->
 
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/contacts"/>-->
+            <!--<bean class=""-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 </beans>

@@ -9,6 +9,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.persistence.EntityManagerFactory;
@@ -16,7 +17,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-public class ContextConfiguration {
+public class DataContextConfiguration {
 
     @Bean
     public InternalResourceViewResolver setInternalResourceViewResolver() {
@@ -58,10 +59,10 @@ public class ContextConfiguration {
         return new HibernateJpaVendorAdapter();
     }
 
-    @Bean(name = "transactionManager")
-    public JpaTransactionManager transactionManager() {
-        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
-        jpaTransactionManager.setEntityManagerFactory((EntityManagerFactory) entityManagerFactory());
-        return jpaTransactionManager;
-    }
+//    @Bean(name = "transactionManager")
+//    public JpaTransactionManager transactionManager() {
+//        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
+//        jpaTransactionManager.setEntityManagerFactory((EntityManagerFactory) entityManagerFactory());
+//        return jpaTransactionManager;
+//    }
 }

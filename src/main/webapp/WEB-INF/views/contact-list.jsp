@@ -13,30 +13,36 @@
     <title>List</title>
 </head>
 <body>
-    <div id="menu">
-        <sec:authorize access="isAnonymous()">
-            <div id="login">
-                <form name="loginForm" action="${loginUrl}" method="post">
-                    <tаble>
-                        <tr>
-                            <td>Login:</td>
-                            <td><input type="text" name="j_username"/></td>
-                        </tr>
-                        <tr>
-                            <td>Password:</td>
-                            <td><input type="password" name="j_password"/></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" align="center"><input name="submit"
-                                                                  type="submit"
-                                                                  value="Login">
-                            </td>
-                        </tr>
-                    </tаble>
-                </form>
-            </div>
-        </sec:authorize>
-    </div>
+    <form id="logoutForm" method="POST" action="${contextPath}/logout">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+    <h2>Contact list | <a style="cursor: pointer;" onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <hr>
+        <h3>Create new one</h3>
+        <div id="save-contact">
+            <form name="saveContact" action="" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <tаble>
+                    <tr>
+                        <td>First name:</td>
+                        <td><input type="text" name="first_name"/></td>
+                    </tr>
+                    <tr>
+                        <td>Last name:</td>
+                        <td><input type="text" name="last_name"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input name="submit" type="submit" value="Save">
+                        </td>
+                    </tr>
+                </tаble>
+            </form>
+        </div>
+        <hr>
+    </sec:authorize>
+
     <c:if test="${not empty contacts}">
         <table>
             <thead>
@@ -44,7 +50,10 @@
                     <th>Id</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Birth Date</th>
+                    <th></th>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <th></th>
+                    </sec:authorize>
                 </tr>
             </thead>
             <tbody>
@@ -53,7 +62,10 @@
                         <td>${contact.id}</td>
                         <td>${contact.firstName}</td>
                         <td>${contact.lastName}</td>
-                        <td>${contact.birthDate.toLocalDate()}</td>
+                        <td><a href="${pageContext.request.contextPath}contacts/${contact.id}">profile</a></td>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+                            <td><a href="${pageContext.request.contextPath}contacts/${contact.id}/delete">-</a></td>
+                        </sec:authorize>
                     </tr>
                 </c:forEach>
             </tbody>

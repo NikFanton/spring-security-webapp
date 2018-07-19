@@ -1,5 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -27,7 +28,13 @@
 
         <h2>Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a>
         </h2>
-
+        <br>
+        <h2>
+            Go to <a href="${pageContext.request.contextPath}/contacts">Contact list</a>
+        </h2>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            This text only for admin
+        </sec:authorize>
     </c:if>
 
 </div>
